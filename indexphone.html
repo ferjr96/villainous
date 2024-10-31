@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Villainous</title>
+        <style>
+            :root {
+                --clr-neon: hsl(317 100% 54%);
+                --clr-bg: hsl(323 21% 16%);
+            }
+
+            *,
+            *::before,
+            *::after {
+                box-sizing: border-box;
+            }
+            /* Estilos básicos */
+            body {
+                background-image: url(./images/villainous/wallpaper/maleficent_by_gingerannelondon_d744xmh.jpg);
+                background-repeat: no-repeat;
+                background-position: center center;
+                background-attachment: fixed;
+                background-size: cover;
+            }
+            .game {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 100vw;
+                height: 100vh;
+                display: grid;
+                justify-items: center;
+                align-items: center;
+                justify-content: center;
+                align-content: center;
+            }
+            .game > img {
+                width: 200px;
+            }
+            .container {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                grid-template-rows: repeat(3, 1fr);
+                gap: 7px;
+                padding: 1%;
+                /* margin-right: 115px; */
+                width: 58%;
+                box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.3);
+                background-color: rgba(0, 0, 0, 0.7);
+                max-width: 1000px;
+                /* align-items: center; */
+                /* justify-items: center; */
+                justify-content: center;
+                align-content: center;
+            }
+            h1 {
+                text-align: center;
+            }
+
+            .square {
+                aspect-ratio: 1;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border: 5px solid transparent;
+                cursor: pointer;
+                transition: border 0.3s none;
+            }
+
+            .square img {
+                width: 100%;
+                height: auto;
+                object-fit: cover;
+            }
+
+            .selected {
+                border: 5px groove #e7fa52;
+                box-shadow: 0 0 50px 15px #16ff00;
+                z-index: 10;
+            }
+
+            button {
+                margin-top: 15px;
+
+                cursor: pointer;
+                padding: 5px 45px;
+                font-size: 12px;
+                outline: none;
+                border: none;
+                background: #50ff05;
+                background: linear-gradient(35deg, #50ff05, #e7fa52);
+                background-clip: text;
+                color: transparent;
+                border-radius: 20px;
+                transition: all 0.5s ease-in-out;
+                box-shadow:
+                    0 0 1px 2px #50ff05,
+                    0 0 1px 2px #e7fa52,
+                    0 0 10px #50ff05,
+                    0 0 10px #e7fa52;
+            }
+
+            button:hover {
+                background-clip: unset;
+                color: black;
+                box-shadow:
+                    0 0 80px #50ff05,
+                    0 0 80px #e7fa52;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="game">
+            <img src="./images/villainous/villainous_name.png" />
+            <div class="container" id="squareContainer">
+                <!-- 21 cuadrados con imágenes -->
+                <div class="square"><img src="./images/villainous/iconos/Prince_John.webp" /></div>
+                <div class="square"><img src="./images/villainous/iconos/Queen_of_Hearts.webp" /></div>
+                <div class="square"><img src="./images/villainous/iconos/Captain_Hook.webp" /></div>
+                <div class="square"><img src="./images/villainous/iconos/Jafar.webp" /></div>
+                <div class="square"><img src="./images/villainous/iconos/Maleficent.webp" /></div>
+                <div class="square"><img src="./images/villainous/iconos/Ursula.webp" /></div>
+                <div class="square"><img src="./images/villainous/iconos/Madam_Mim.webp" /></div>
+                <div class="square"><img src="./images/villainous/iconos/Evil_Queen.webp" /></div>
+                <div class="square"><img src="./images/villainous/iconos/Hades.webp" /></div>
+                <div class="square"><img src="./images/villainous/iconos/Dr_Facilier.webp" /></div>
+                <div class="square"><img src="./images/villainous/iconos/Scar.webp" /></div>
+                <div class="square"><img src="./images/villainous/iconos/Yzma.webp" /></div>
+                <div class="square"><img src="./images/villainous/iconos/Ratigan.webp" /></div>
+                <div class="square"><img src="./images/villainous/iconos/Syndrome.webp" /></div>
+                <div class="square"><img src="./images/villainous/iconos/Cruella_De_Vil.webp" /></div>
+                <div class="square"><img src="./images/villainous/iconos/Pete.webp" /></div>
+                <div class="square"><img src="./images/villainous/iconos/Mother_Gothel.webp" /></div>
+                <div class="square"><img src="./images/villainous/iconos/Gaston.webp" /></div>
+                <div class="square"><img src="./images/villainous/iconos/Horned_King.webp" /></div>
+                <div class="square"><img src="./images/villainous/iconos/Lady_Tremaine.webp" /></div>
+                <div class="square"><img src="./images/villainous/iconos/Lotso.webp" /></div>
+                <!-- Repite esto hasta tener 21 cuadrados -->
+            </div>
+            <link rel="preconnect" href="https://fonts.gstatic.com" />
+            <link
+                href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans:wght@700&display=swap"
+                rel="stylesheet" />
+
+            <button onclick="startSelection()">SELECT VILLAIN</button>
+        </div>
+
+        <script>
+            // Variables
+            const squares = document.querySelectorAll(".square");
+            let intervalId;
+
+            // Función para iniciar la selección
+            function startSelection() {
+                if (intervalId) clearInterval(intervalId); // Limpia el intervalo previo, si existe
+
+                intervalId = setInterval(() => {
+                    // Restablecer la clase de selección de todos los cuadrados
+                    squares.forEach((square) => square.classList.remove("selected"));
+
+                    // Seleccionar un índice aleatorio
+                    const randomIndex = Math.floor(Math.random() * squares.length);
+                    squares[randomIndex].classList.add("selected"); // Marcar el cuadrado seleccionado
+                }, 100); // Cambia la selección cada 100 ms
+
+                // Detener la selección después de un tiempo aleatorio
+                setTimeout(() => {
+                    clearInterval(intervalId); // Detener el intervalo
+                    const finalIndex = Math.floor(Math.random() * squares.length); // Selección aleatoria final
+                    squares.forEach((square) => square.classList.remove("selected"));
+                    squares[finalIndex].classList.add("selected"); // Marcar el cuadrado seleccionado final
+                }, 3000); // Detener después de 3 segundos
+            }
+        </script>
+    </body>
+</html>
